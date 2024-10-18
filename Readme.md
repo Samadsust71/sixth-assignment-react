@@ -19,41 +19,40 @@ Peddy is a pet adoption platform where users can browse pets available for adopt
 ## Installation
 
 1. Clone the repository:
-    
-    ```bash
-    bash
-    Copy code
-    git clone https://github.com/yourusername/peddy.git
-    
-    ```
-    
+
+   ```bash
+
+
+   git clone https://github.com/yourusername/peddy.git
+
+   ```
+
 2. Navigate to the project folder:
-    
-    ```bash
-    bash
-    Copy code
-    cd peddy
-    
-    ```
-    
+
+   ```bash
+
+
+   cd peddy
+
+   ```
+
 3. Install dependencies:
-    
-    ```bash
-    bash
-    Copy code
-    npm install
-    
-    ```
-    
+
+   ```bash
+
+
+   npm install
+
+   ```
+
 4. Start the development server:
-    
-    ```bash
-    bash
-    Copy code
-    npm start
-    
-    ```
-    
+
+   ```bash
+
+
+   npm run dev
+
+   ```
 
 ## How to Use
 
