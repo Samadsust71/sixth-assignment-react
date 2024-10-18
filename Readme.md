@@ -23,7 +23,7 @@ Peddy is a pet adoption platform where users can browse pets available for adopt
    ```bash
 
 
-   git clone https://github.com/yourusername/peddy.git
+   git clone https://github.com/Samadsust71/sixth-assignment-react.git
 
    ```
 
