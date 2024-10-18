@@ -32,7 +32,7 @@ Peddy is a pet adoption platform where users can browse pets available for adopt
    ```bash
 
 
-   cd peddy
+   cd sixth-assignment-react
 
    ```
 

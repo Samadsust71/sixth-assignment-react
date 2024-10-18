@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="bg-black py-10">
+    <div className="bg-black py-20">
       <div className=" w-11/12 mx-auto flex items-center justify-between">
         <div className="space-y-6 flex flex-col justify-center">
           <div className="flex gap-2">
@@ -14,7 +14,7 @@ export default function Footer() {
             Openings hours: 9.00 AM - 5.00 PM
           </div>
         </div>
-        <div className="text-white space-y-6">
+        <div className="text-white space-y-6 flex flex-col justify-center">
         <h1 className="text-2xl">Useful Links</h1>
           <div className="text-white space-y-2 flex flex-col  justify-center">
             <a href="">Home</a>
@@ -24,11 +24,11 @@ export default function Footer() {
             <a href="">Contact</a>
           </div>
         </div>
-        <div className="text-white space-y-8">
+        <div className="text-white space-y-6 flex flex-col justify-center">
         <h1 className="text-2xl">Drop a Message</h1>
         <div className="flex flex-col space-y-6">
             <input type="text" placeholder="Enter Your Email" className="px-6 py-3 w-full rounded-lg bg-gray-800 shadow-2xl" />
-            <button className="px-4 py-3 w-full bg-green-300 rounded-xl">Subscribe</button>
+            <button className="px-4 py-3 w-full bg-[#2b5558] rounded-xl">Subscribe</button>
         </div>
         </div>
       </div>

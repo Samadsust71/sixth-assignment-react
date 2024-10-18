@@ -6,12 +6,12 @@ export default function Navbar() {
         <h1 className="text-2xl text-black font-extrabold">Peddy</h1>
       </div>
       <div className="flex items-center gap-6">
-        <button className="px-4 py-2 rounded-lg hover:bg-green-300 hover:text-white"><a href="">Shop</a></button>
-        <button className="px-4 py-2 rounded-lg hover:bg-green-300 hover:text-white"><a href="/index.html">Home</a></button>
-        <button className="px-4 py-2 rounded-lg hover:bg-green-300 hover:text-white"><a href="">Contact</a></button>
+        <button className="px-4 py-2 rounded-lg hover:bg-[#2b5558] hover:text-white"><a href="">Shop</a></button>
+        <button className="px-4 py-2 rounded-lg hover:bg-[#2b5558] hover:text-white"><a href="/index.html">Home</a></button>
+        <button className="px-4 py-2 rounded-lg hover:bg-[#2b5558] hover:text-white"><a href="">Contact</a></button>
       </div>
 
-      <button className="p-4 rounded-full border hover:bg-green-300">
+      <button className="p-4 rounded-full border hover:bg-[#2b5558]">
         <img src="/src/assets/user-icon.png" alt="" />
       </button>
     </div>
