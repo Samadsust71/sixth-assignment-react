@@ -4,7 +4,7 @@ export default function Footer() {
       <div className=" w-11/12 mx-auto flex items-center justify-between">
         <div className="space-y-6 flex flex-col justify-center">
           <div className="flex gap-2">
-            <img src="/src/assets/logo.webp" alt="" />
+            <img className="h-10 w-10" src="/src/assets/logo.webp" alt="" />
             <h1 className="text-4xl text-white">Peddy</h1>
           </div>
           <div className="text-white leading-7">
