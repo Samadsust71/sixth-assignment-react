@@ -8,6 +8,7 @@ const WebMain = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState("");
+  const [addLikedImage,setAddLikedImage]=useState([])
 
   // Fetch categories on initial load
   useEffect(() => {
@@ -24,6 +25,8 @@ const WebMain = () => {
     };
     loadCategories();
   }, []);
+
+  
 
   // Fetch posts (either all or filtered by category)
   const loadPosts = (category = "") => {
@@ -44,6 +47,13 @@ const WebMain = () => {
     }, 2000);
   };
 
+  // handle add Liked image 
+  const handleAddImage = (post)=>{
+    const{image}=post
+    const newLikedImage = [...addLikedImage,image]
+   setAddLikedImage(newLikedImage)
+  }
+
   // Handle category selection
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
@@ -60,6 +70,7 @@ const WebMain = () => {
   useEffect(() => {
     loadPosts();
   }, []);
+  
 
   return (
     <div id="main" className="w-11/12 mx-auto my-10 space-y-10">
@@ -99,15 +110,15 @@ const WebMain = () => {
         </div>
       </section>
       {/* All card and side image container */}
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* all card container */}
         <section className="col-span-3">
           {loading ? (
             <LoadingSpinner />
           ) : posts.length > 0 ? (
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
-                <PostCard key={post.petId} post={post} />
+                <PostCard key={post.petId} handleAddImage={handleAddImage} post={post} />
               ))}
             </div>
           ) : (
@@ -123,7 +134,17 @@ const WebMain = () => {
             </div>
           )}
         </section>
-        <section></section>
+        <section className="">
+          <div className="border border-[#0e7a86] p-4 rounded-lg space-y-6 col-span-3 lg:col-span-1">
+          <h1 className="font-extrabold text-2xl">Liked pets: <span className="text-[#0e7a86]">{addLikedImage.length}</span></h1>
+          <hr />
+          <div className="grid grid-cols-2 gap-2">
+            {
+              addLikedImage.map((img,idx)=><img key={idx} src={img} className="rounded-lg w-full object-cover lg:h-40" />)
+            }
+          </div>
+          </div>
+        </section>
       </div>
     </div>
   );
