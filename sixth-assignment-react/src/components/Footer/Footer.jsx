@@ -1,10 +1,11 @@
+import Logo from '../../assets/logo.webp'
 export default function Footer() {
   return (
     <div className="bg-black py-20">
-      <div className=" w-11/12 mx-auto flex items-center justify-between">
+      <div className=" w-11/12 mx-auto flex flex-col lg:flex-row   lg:justify-between justify-start space-y-6">
         <div className="space-y-6 flex flex-col justify-center">
           <div className="flex gap-2">
-            <img className="h-10 w-10" src="./src/assets/logo.webp" alt="" />
+            <img className="h-10 w-10" src={Logo} alt="" />
             <h1 className="text-4xl text-white">Peddy</h1>
           </div>
           <div className="text-white leading-7">
@@ -14,9 +15,9 @@ export default function Footer() {
             Openings hours: 9.00 AM - 5.00 PM
           </div>
         </div>
-        <div className="text-white space-y-6 flex flex-col justify-center">
+        <div className="text-white space-y-6 flex flex-col items-start justify-start">
         <h1 className="text-2xl">Useful Links</h1>
-          <div className="text-white space-y-2 flex flex-col  justify-center">
+          <div className="text-white space-y-2 flex flex-col items-start justify-start">
             <a href="">Home</a>
             <a href="">About Us</a>
             <a href="">Animals</a>
@@ -24,7 +25,7 @@ export default function Footer() {
             <a href="">Contact</a>
           </div>
         </div>
-        <div className="text-white space-y-6 flex flex-col justify-center">
+        <div className="text-white space-y-6 flex flex-col">
         <h1 className="text-2xl">Drop a Message</h1>
         <div className="flex flex-col space-y-6">
             <input type="text" placeholder="Enter Your Email" className="px-6 py-3 w-full rounded-lg bg-gray-800 shadow-2xl" />

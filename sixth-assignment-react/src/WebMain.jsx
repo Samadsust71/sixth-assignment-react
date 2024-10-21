@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import CategoryButton from "./components/CategoryButton";
 import PostCard from "./components/PostCard";
 import LoadingSpinner from "./components/LoadingSpinner";
+import ErrorImage from "./assets/error.webp";
+import AddImage from "./components/AddImage";
+import { addTolLs, getStoredCart, removeAllItem, removedCart } from "./utilities/localStorage";
 
 const WebMain = () => {
   const [categories, setCategories] = useState([]);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState("");
-  const [addLikedImage,setAddLikedImage]=useState([])
+  const [addLikedImage, setAddLikedImage] = useState([]);
 
   // Fetch categories on initial load
   useEffect(() => {
@@ -25,8 +28,6 @@ const WebMain = () => {
     };
     loadCategories();
   }, []);
-
-  
 
   // Fetch posts (either all or filtered by category)
   const loadPosts = (category = "") => {
@@ -47,13 +48,28 @@ const WebMain = () => {
     }, 2000);
   };
 
-  // handle add Liked image 
-  const handleAddImage = (post)=>{
-    const{image}=post
-    const newLikedImage = [...addLikedImage,image]
-   setAddLikedImage(newLikedImage)
-  }
-
+  // handle add Liked image
+  const handleAddImage = (post) => {
+    console.log(post);
+    const { petId } = post;
+    const newLikedImage = [...addLikedImage, post];
+    setAddLikedImage(newLikedImage);
+    addTolLs(petId);
+  };
+  // get data from local storage
+  useEffect(() => {
+    if (posts.length) {
+      const storedCart = getStoredCart();
+      const savedCart = [];
+      for (const id of storedCart) {
+        const post = posts.find((post) => post.petId === id);
+        if (post) {
+          savedCart.push(post);
+        }
+      }
+      setAddLikedImage(savedCart);
+    }
+  }, [posts]);
   // Handle category selection
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
@@ -70,7 +86,15 @@ const WebMain = () => {
   useEffect(() => {
     loadPosts();
   }, []);
-  
+  const handleClear = (id) => {
+    const newSetLikedImage = addLikedImage.filter((img) => img.petId !== id);
+    setAddLikedImage(newSetLikedImage);
+    removedCart(id);
+  };
+  const handleClearAll = () => {
+    setAddLikedImage([]);
+    removeAllItem()
+  };
 
   return (
     <div id="main" className="w-11/12 mx-auto my-10 space-y-10">
@@ -118,12 +142,16 @@ const WebMain = () => {
           ) : posts.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
-                <PostCard key={post.petId} handleAddImage={handleAddImage} post={post} />
+                <PostCard
+                  key={post.petId}
+                  handleAddImage={handleAddImage}
+                  post={post}
+                />
               ))}
             </div>
           ) : (
             <div className="space-y-6 flex flex-col justify-center items-center bg-gray-100 py-10 rounded-xl">
-              <img src="/src/assets/error.webp" alt="" />
+              <img src={ErrorImage} alt="" />
               <h1 className="text-2xl text-black font-bold">
                 No Information Available
               </h1>
@@ -135,14 +163,35 @@ const WebMain = () => {
           )}
         </section>
         <section className="">
-          <div className="border border-[#0e7a86] p-4 rounded-lg space-y-6 col-span-3 lg:col-span-1">
-          <h1 className="font-extrabold text-2xl">Liked pets: <span className="text-[#0e7a86]">{addLikedImage.length}</span></h1>
-          <hr />
-          <div className="grid grid-cols-2 gap-2">
-            {
-              addLikedImage.map((img,idx)=><img key={idx} src={img} className="rounded-lg w-full object-cover lg:h-40" />)
-            }
-          </div>
+          <div className="border border-[#0e7a86] p-2 rounded-lg space-y-6 col-span-3 lg:col-span-1">
+            <div className="flex justify-between items-center">
+              <h1 className="font-extrabold text-xl">
+                Liked pets:{" "}
+                <span className="text-[#0e7a86]">{addLikedImage.length}</span>
+              </h1>
+              {addLikedImage.length ? (
+                <button
+                  className="p-2 bg-red-500 text-white rounded-lg"
+                  disabled={addLikedImage.length ? false : true}
+                  onClick={handleClearAll}
+                >
+                  Clear All
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+            <hr />
+            <div className="grid grid-cols-2 gap-2">
+              {addLikedImage.map((img, idx) => (
+                <AddImage
+                  key={idx}
+                  img={img}
+                  idx={idx}
+                  handleClear={() => handleClear(img.petId)}
+                />
+              ))}
+            </div>
           </div>
         </section>
       </div>
