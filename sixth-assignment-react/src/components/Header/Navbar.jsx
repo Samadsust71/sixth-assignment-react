@@ -18,7 +18,7 @@ export default function Navbar() {
           <a href="">Contact</a>
         </button>
       </div>
-
+      
       <button className="p-4 rounded-full border hover:bg-[#0e7a86]">
         <img src={UserIcon} alt="" />
       </button>

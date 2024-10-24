@@ -4,7 +4,12 @@ import PostCard from "./components/PostCard";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ErrorImage from "./assets/error.webp";
 import AddImage from "./components/AddImage";
-import { addTolLs, getStoredCart, removeAllItem, removedCart } from "./utilities/localStorage";
+import {
+  addTolLs,
+  getStoredCart,
+  removeAllItem,
+  removedCart,
+} from "./utilities/localStorage";
 
 const WebMain = () => {
   const [categories, setCategories] = useState([]);
@@ -50,7 +55,6 @@ const WebMain = () => {
 
   // handle add Liked image
   const handleAddImage = (post) => {
-    console.log(post);
     const { petId } = post;
     const newLikedImage = [...addLikedImage, post];
     setAddLikedImage(newLikedImage);
@@ -86,14 +90,33 @@ const WebMain = () => {
   useEffect(() => {
     loadPosts();
   }, []);
+
   const handleClear = (id) => {
-    const newSetLikedImage = addLikedImage.filter((img) => img.petId !== id);
-    setAddLikedImage(newSetLikedImage);
+    const likedImagesWithoutCurrent = addLikedImage.filter(
+      (img) => img.petId !== id
+    );
+    const currentLikedImages = addLikedImage.filter((img) => img.petId === id);
+
+    // If there's only one image with the same petId, simply set the new liked images without it
+    if (currentLikedImages.length <= 1) {
+      setAddLikedImage(likedImagesWithoutCurrent);
+    } else {
+      // If there are multiple, remove just one instance and keep the rest
+      const updatedSameLikedImages = currentLikedImages.slice(1); // Remove one instance
+      const updatedLikedImages = [
+        ...likedImagesWithoutCurrent,
+        ...updatedSameLikedImages,
+      ];
+
+      setAddLikedImage(updatedLikedImages);
+    }
+
     removedCart(id);
   };
+
   const handleClearAll = () => {
     setAddLikedImage([]);
-    removeAllItem()
+    removeAllItem();
   };
 
   return (
@@ -166,7 +189,7 @@ const WebMain = () => {
           <div className="border border-[#0e7a86] p-2 rounded-lg space-y-6 col-span-3 lg:col-span-1">
             <div className="flex justify-between items-center">
               <h1 className="font-extrabold text-xl">
-                Liked pets:{" "}
+                Pets Liked :{" "}
                 <span className="text-[#0e7a86]">{addLikedImage.length}</span>
               </h1>
               {addLikedImage.length ? (
